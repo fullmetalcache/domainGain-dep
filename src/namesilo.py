@@ -6,6 +6,8 @@
 ################################################################################
 
 import urllib2
+import urllib
+import cookielib
 
 class NameSilo( object ):
     def __init__(self, apiKey, paymentId):
@@ -18,7 +20,30 @@ class NameSilo( object ):
             'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
             'Accept-Encoding': 'none',
             'Accept-Language': 'en-US,en;q=0.8',
-            'Connection': 'keep-alive' }
+	    'Connection': 'keep-alive' }
+
+	#Gets the price of a domain. 
+	#For some reason this isn't part of the API
+    def GetPrice( self, domain ):
+	cj = cookielib.CookieJar()
+        
+	#Setup request
+	data = urllib.urlencode({'domain_search' : domain, 'x' : '0', 'y' : '0' })
+        opener = urllib2.build_opener( urllib2.HTTPCookieProcessor( cj ) )
+        opener.addheaders = [('User-Agent', self.hdr['User-Agent'])]
+
+	#Perform necessary requests, in order, and get the needed response
+        res = opener.open("https://www.namesilo.com/")
+        res = opener.open("https://www.namesilo.com/domain_results.php", data)
+        content = res.read()
+        
+	#Determine the price for domain with the given extension (e.g., .net, .com, etc)
+	extension = domain.split('.')[1]
+        splitstring = "<label for=\"{0}_selection\">".format(extension)
+        content = content.split(splitstring)[1]
+        content = content.split("<em>(")[1]
+        price = content.split(")<")[0]
+	return price
 
         #Registers a domain, deletes the default DNS records
         #and then creates/sets an A record to point to
@@ -125,25 +150,22 @@ class NameSilo( object ):
 
         else:
             domainsString = domains
-
         req = urllib2.Request(  checkRegAvailabilityUrl.format( self.baseUrl, self.apiKey, domainsString ),
                                 headers = self.hdr )
 
         resp = ""
-
         try:
             resp = urllib2.urlopen(req)
         except urllib2.HTTPError, e:
             print e.fp.read()
             return
-
+            
         content = resp.read()
-        try:
+	try:
             content = content.split("<available>", 1)[1]
             content = content.split("</available>",1)[0]
         except:
             return
-
         results = []
         for dom in content.split("<domain>"):
             results.append( dom.split("</domain>", 1)[0] )
