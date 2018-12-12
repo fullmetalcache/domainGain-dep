@@ -5,9 +5,9 @@ This tool will query multiple sources to find domains that have recently expired
 
 To use this tool, you will need to sign up for a few, free API-Keys. The API Keys can be obtained from the following sites:
 
-K9 License for Categorization Checking: http://www1.k9webprotection.com/
+-K9 License for Categorization Checking: http://www1.k9webprotection.com/
 
-NameSilo API Key for Verifying Domain Availablity: https://www.namesilo.com
+-NameSilo API Key for Verifying Domain Availablity: https://www.namesilo.com
 
 Please note that if you would like to use the registration feature of this script, you will also need to obtain a NameSilo Payment ID. The NameSilo Payment ID is provided to you once they have verified a payment method of yours, which can be done by uploading a picture of your credit/check/debit card for them to review. Note that this is completely optional and you don't have to use this feature; you can just Ctrl-C out of the program after it displays the domain names, categorizations, and prices.
 
