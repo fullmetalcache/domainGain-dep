@@ -75,12 +75,18 @@ idx = 0
 
 available = []
 
-while ( idx + 100 ) < len( edResults ):
-	available.extend( ns.registerAvailability( edResults[ idx:idx+100 ] ) )
-	idx += 100
+while ( idx + 25 ) < len( edResults ):
+	try:
+		available.extend( ns.registerAvailability( edResults[ idx:idx+25 ] ) )
+	except:
+		pass
 
-available.extend( ns.registerAvailability( edResults[ idx: ] ) )
+	idx += 25
 
+try:
+	available.extend( ns.registerAvailability( edResults[ idx: ] ) )
+except:
+	pass
 #Get categorizations for each of the available domains
 fmcp.printDiag("Checking categorization for domains...")
 k9 = K9Cat( k9license = K9LICENSE )

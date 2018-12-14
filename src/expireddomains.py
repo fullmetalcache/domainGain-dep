@@ -21,7 +21,7 @@ class ExpiredDomains( object ):
         self.unauthSearchSimWebUrl = "https://www.expireddomains.net/deleted-domains/?o=similarweb&r=a&ftlds[]={0}&start={1}"
         self.unauthSearchAcrUrl = "https://www.expireddomains.net/deleted-domains/?o=aentries&r=d&ftlds[]={0}&start={1}"
         self.domainTypes=[2, 3, 4, 12, 249]
-        self.startNums = [0, 50, 100, 150, 200, 250, 300, 350]
+        self.startNums = [0, 50, 100]
         self.cookies = cookielib.CookieJar()
 
     #Logs into expireddomains.net with the provided username and password

@@ -56,8 +56,8 @@ class NameSilo( object ):
         for record in dnsRecords:
             self.deleteDnsRecord( domain, record )
 
-        rrhost = domain.split(".")[0]
-
+        #rrhost = domain.split(".")[0]
+	rrhost = ""
         self.addDnsRecord( domain, "A", rrhost, ipAddress )
 
     #Adds a new DNS record given the following:

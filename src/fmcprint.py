@@ -11,8 +11,8 @@ class FmcPrint( object ):
     def printSuccess( self, text  ):
         print("\033[1;32;0m [*] {0} \033[0;0;0m \n".format(text))
 
-    def printSuccessNum( self, text, idx  ):
-        print("\033[1;32;0m [{0}] {1} \033[0;0;0m \n".format(idx, text))
+    def printSuccessNum( self, text, idx, price  ):
+        print("\033[1;32;0m [{0}] {1} {2} \033[0;0;0m \n".format(idx, text, price))
 
     def printWarning( self, text ):
         print("\033[1;33;0m [-] {0} \033[0;0;0m \n".format(text))
