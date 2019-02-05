@@ -102,7 +102,8 @@ blacklist = ["Uncategorized", "Hacking", "Unknown", "Suspicious", "Malicious Out
 
 for dom in available:
 	category = k9.CheckCat( dom )
-	if (options.whitelist and category in options.whitelist) or category not in blacklist:
+	if (options.whitelist is not None and category in options.whitelist) \
+			or (options.whitelist is None and category not in blacklist):
 		domains[ dom ] = category
 
 try:
