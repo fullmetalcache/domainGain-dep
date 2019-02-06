@@ -4,6 +4,7 @@ from namesilo import *
 from k9cat import *
 from threading import Lock, Thread
 import socket
+import optparse
 
 lock = Lock()
 
@@ -17,6 +18,12 @@ NSAPIKEY = ""
 
 ### ENTER YOUR NAMESILO PAYMENT ID. (free @ https://www.namesilo.com) ###
 NSPAYMENTID = ""
+
+# Parse options
+parser = optparse.OptionParser()
+parser.add_option("-w", "--whitelist", action='append',
+                  help="specify a category to add to search list")
+(options, args) = parser.parse_args()
 
 #Get variety of recently expired domains from expireddomains.net
 fmcp.printDiag("Getting expired domains...")
@@ -95,7 +102,8 @@ blacklist = ["Uncategorized", "Hacking", "Unknown", "Suspicious", "Malicious Out
 
 for dom in available:
 	category = k9.CheckCat( dom )
-	if category not in blacklist:
+	if (options.whitelist is not None and category in options.whitelist) \
+			or (options.whitelist is None and category not in blacklist):
 		domains[ dom ] = category
 
 try:
